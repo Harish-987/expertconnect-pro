@@ -1,33 +1,23 @@
 const mongoose = require('mongoose');
 
+mongoose.set('strictQuery', true);
+
+mongoose.connection.on('disconnected', () => console.warn('⚠️  MongoDB disconnected'));
+mongoose.connection.on('reconnected',  () => console.info('♻️  MongoDB reconnected'));
+mongoose.connection.on('error',        (e) => console.error('MongoDB error:', e.message));
+
 /**
- * Connects to MongoDB via Mongoose.
- * Exits the process on failure — there's no point running the server
- * without a database connection.
+ * Connects to MongoDB.
+ * Throws on failure so the caller (server.js) can log the root cause,
+ * but the HTTP server stays up — Render logs will show the Atlas error.
  */
 const connectDB = async () => {
-  mongoose.set('strictQuery', true);
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: 15000, // longer window for cloud cold starts
-      socketTimeoutMS: 45000,
-    });
-
-    console.log(`✅ MongoDB connected: ${conn.connection.host}`);
-  } catch (err) {
-    console.error(`❌ MongoDB connection failed: ${err.message}`);
-    // Log the full error in staging to help diagnose Atlas IP-whitelist issues
-    if (process.env.NODE_ENV !== 'production') console.error(err);
-    process.exit(1);
-  }
+  const conn = await mongoose.connect(process.env.MONGO_URI, {
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS:          45000,
+    maxPoolSize:              10,
+  });
+  console.log(`✅ MongoDB connected: ${conn.connection.host}`);
 };
-
-// Surface connection lifecycle events for observability
-mongoose.connection.on('disconnected', () =>
-  console.warn('⚠️  MongoDB disconnected')
-);
-mongoose.connection.on('reconnected', () =>
-  console.info('♻️  MongoDB reconnected')
-);
 
 module.exports = connectDB;

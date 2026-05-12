@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="description" content="ExpertConnect Pro — Book 1-on-1 sessions with world-class experts in technology, business, design, finance, and more." />
+    <meta property="og:title" content="ExpertConnect Pro" />
+    <meta property="og:description" content="Real-time expert session booking. Connect with top professionals instantly." />
+    <title>ExpertConnect Pro — Book Expert Sessions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: #0a0a12;
+        color: #f1f5f9;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #0e0e1a; }
+      ::-webkit-scrollbar-thumb { background: #2a2a40; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+      #root { min-height: 100vh; }
+      /* Prevent flash of unformatted content */
+      [data-skeleton] { animation: shimmer 2s linear infinite; background: linear-gradient(90deg, #1c1c30 25%, #232336 50%, #1c1c30 75%); background-size: 200% 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
